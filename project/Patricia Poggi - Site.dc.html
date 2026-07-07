@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Mulish:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#EEE9E2;font-family:'Mulish',system-ui,sans-serif;color:#3E4A52;-webkit-font-smoothing:antialiased}
+  a{color:#2C5169;text-decoration:none}
+  a:hover{color:#1D3B52}
+  ::selection{background:#7C9A8B;color:#fff}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#EEE9E2">
+
+  <!-- ===================== HEADER ===================== -->
+  <header style="position:sticky;top:0;z-index:60;background:rgba(238,233,226,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(29,59,82,.1)">
+    <div style="max-width:1200px;margin:0 auto;padding:0 24px;height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px">
+      <button onClick="{{ goAccueil }}" style="display:flex;align-items:center;gap:12px;background:none;border:none;cursor:pointer;padding:0">
+        <img src="assets/mark-poggi.png" alt="Logo Poggi" width="42" height="42" style="display:block;object-fit:contain;mix-blend-mode:multiply">
+        <span style="display:flex;flex-direction:column;line-height:1.02;text-align:left">
+          <span style="font:600 16px 'Spectral',serif;color:#1D3B52;letter-spacing:.005em">Patricia Poggi</span>
+          <span style="font:600 9.5px 'Mulish',sans-serif;color:#5E7D6E;letter-spacing:.2em;text-transform:uppercase;margin-top:2px">Plaies &amp; Cicatrisation</span>
+        </span>
+      </button>
+
+      <sc-if value="{{ showDesktopNav }}" hint-placeholder-val="{{ true }}">
+        <nav style="display:flex;align-items:center;gap:24px">
+          <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="7">
+            <button onClick="{{ item.onClick }}" style="{{ item.style }}" style-hover="color:#1D3B52">{{ item.label }}</button>
+          </sc-for>
+          <button onClick="{{ goContact }}" style="background:#1D3B52;color:#F3EFE8;border:none;border-radius:999px;padding:11px 20px;font:700 13.5px 'Mulish',sans-serif;cursor:pointer;letter-spacing:.01em" style-hover="background:#2C5169">Prendre contact</button>
+        </nav>
+      </sc-if>
+
+      <sc-if value="{{ collapse }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ toggleMenu }}" aria-label="Menu" style="display:flex;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px">
+          <span style="width:24px;height:2px;background:#1D3B52;display:block"></span>
+          <span style="width:24px;height:2px;background:#1D3B52;display:block"></span>
+          <span style="width:24px;height:2px;background:#1D3B52;display:block"></span>
+        </button>
+      </sc-if>
+    </div>
+
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="border-top:1px solid rgba(29,59,82,.1);background:#EEE9E2;padding:12px 24px 20px">
+        <div style="max-width:1200px;margin:0 auto;display:flex;flex-direction:column">
+          <sc-for list="{{ mobileNavItems }}" as="item" hint-placeholder-count="8">
+            <button onClick="{{ item.onClick }}" style="{{ item.style }}">{{ item.label }}</button>
+          </sc-for>
+          <button onClick="{{ goContact }}" style="margin-top:14px;background:#1D3B52;color:#F3EFE8;border:none;border-radius:999px;padding:14px 20px;font:700 14px 'Mulish',sans-serif;cursor:pointer;width:100%">Prendre contact</button>
+        </div>
+      </div>
+    </sc-if>
+  </header>
+
+  <!-- ===================== PAGES ===================== -->
+  <main>
+
+  <!-- ---------- ACCUEIL ---------- -->
+  <sc-if value="{{ isAccueil }}" hint-placeholder-val="{{ true }}">
+  <div>
+
+    <!-- HERO -->
+    <section style="background:linear-gradient(180deg,#EEE9E2 0%,#E9E2D6 100%);overflow:hidden">
+      <div style="max-width:1180px;margin:0 auto;padding:clamp(48px,6vw,88px) 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:clamp(32px,5vw,64px);align-items:center">
+        <div>
+          <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(124,154,139,.16);border:1px solid rgba(94,125,110,.3);border-radius:999px;padding:6px 14px;margin-bottom:26px">
+            <span style="width:7px;height:7px;border-radius:50%;background:#5E7D6E;display:block"></span>
+            <span style="font:600 11.5px 'Mulish',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#4C6857">Expertise en cicatrisation</span>
+          </div>
+          <h1 style="margin:0 0 22px;font:400 clamp(38px,5.2vw,60px) 'Spectral',serif;line-height:1.06;letter-spacing:-.015em;color:#1D3B52">Patricia&nbsp;Poggi<br><span style="color:#5E7D6E;font-style:italic;font-weight:300">Plaies &amp; Cicatrisation</span></h1>
+          <p style="margin:0 0 18px;font:500 clamp(18px,2vw,21px)/1.5 'Mulish',sans-serif;color:#2C5169;max-width:30ch">Accompagnement spécialisé des plaies complexes, chroniques ou à cicatrisation difficile.</p>
+          <p style="margin:0 0 34px;font:400 16.5px/1.75 'Mulish',sans-serif;color:#4A5860;max-width:46ch">Une approche clinique, coordonnée et personnalisée pour les patients, les soignants et les structures de soins.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px">
+            <button onClick="{{ goContact }}" style="background:#1D3B52;color:#F3EFE8;border:none;border-radius:999px;padding:15px 28px;font:700 15px 'Mulish',sans-serif;cursor:pointer;letter-spacing:.01em" style-hover="background:#2C5169">Prendre contact</button>
+            <button onClick="{{ goPro }}" style="background:transparent;color:#1D3B52;border:1.5px solid rgba(29,59,82,.28);border-radius:999px;padding:14px 26px;font:600 15px 'Mulish',sans-serif;cursor:pointer" style-hover="border-color:#1D3B52;background:rgba(29,59,82,.04)">Je suis professionnel de santé</button>
+          </div>
+        </div>
+        <div style="position:relative">
+          <div style="aspect-ratio:4/5;border-radius:20px;background:repeating-linear-gradient(135deg,#E3DBCC,#E3DBCC 12px,#DAD1BF 12px,#DAD1BF 24px);border:1px solid rgba(29,59,82,.1);display:flex;align-items:flex-end;padding:22px;box-shadow:0 24px 60px -30px rgba(29,59,82,.45)">
+            <span style="font:500 12px ui-monospace,Menlo,monospace;color:#867B67;letter-spacing:.03em;background:rgba(238,233,226,.85);padding:7px 11px;border-radius:8px">photo — geste de soin / consultation, sans plaie visible</span>
+          </div>
+          <div style="position:absolute;bottom:-22px;left:-22px;background:#FBF9F5;border:1px solid rgba(29,59,82,.1);border-radius:14px;padding:16px 18px;box-shadow:0 16px 40px -24px rgba(29,59,82,.4);display:flex;align-items:center;gap:12px;max-width:230px">
+            <img src="assets/mark-poggi.png" width="34" height="34" alt="" style="mix-blend-mode:multiply">
+            <span style="font:500 12.5px/1.4 'Mulish',sans-serif;color:#3E4A52">Évaluation · Coordination · Stratégie de soin</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- POUR QUI -->
+    <section style="max-width:1180px;margin:0 auto;padding:clamp(56px,7vw,96px) 24px">
+      <div style="max-width:640px;margin-bottom:44px">
+        <div style="font:600 12px 'Mulish',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E7D6E;margin-bottom:14px">Pour qui ?</div>
+        <h2 style="margin:0;font:400 clamp(28px,3.4vw,40px) 'Spectral',serif;line-height:1.14;letter-spacing:-.01em;color:#1D3B52">Un appui adapté à chaque situation</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px">
+        <sc-for list="{{ pourQui }}" as="c" hint-placeholder-count="3">
+          <div style="background:#FBF9F5;border:1px solid rgba(29,59,82,.1);border-radius:18px;padding:30px 28px;display:flex;flex-direction:column;gap:14px" style-hover="border-color:rgba(124,154,139,.55)">
+            <div style="width:46px;height:46px;border-radius:12px;background:rgba(124,154,139,.16);display:flex;align-items:center;justify-content:center;font:600 18px 'Spectral',serif;color:#5E7D6E">{{ c.num }}</div>
+            <h3 style="margin:0;font:600 20px 'Spectral',serif;color:#1D3B52">{{ c.title }}</h3>
+            <p style="margin:0;font:400 15px/1.65 'Mulish',sans-serif;color:#4A5860">{{ c.text }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- DOMAINES -->
+    <section style="background:#E4EAE4;border-top:1px solid rgba(94,125,110,.18);border-bottom:1px solid rgba(94,125,110,.18)">
+      <div style="max-width:1180px;margin:0 auto;padding:clamp(56px,7vw,92px) 24px">
+        <div style="max-width:640px;margin-bottom:40px">
+          <div style="font:600 12px 'Mulish',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E7D6E;margin-bottom:14px">Domaines d'intervention</div>
+          <h2 style="margin:0;font:400 clamp(28px,3.4vw,40px) 'Spectral',serif;line-height:1.14;letter-spacing:-.01em;color:#1D3B52">Des situations de cicatrisation complexes</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px">
+          <sc-for list="{{ domaines }}" as="d" hint-placeholder-count="8">
+            <div style="background:#FBF9F5;border:1px solid rgba(29,59,82,.1);border-radius:14px;padding:22px 22px;display:flex;align-items:center;gap:14px" style-hover="background:#fff">
+              <span style="width:9px;height:9px;background:#7C9A8B;border-radius:2px;transform:rotate(45deg);flex:none"></span>
+              <span style="font:600 15.5px 'Mulish',sans-serif;color:#284453">{{ d }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <!-- METHODE -->
+    <section style="max-width:1180px;margin:0 auto;padding:clamp(56px,7vw,96px) 24px">
+      <div style="max-width:640px;margin-bottom:48px">
+        <div style="font:600 12px 'Mulish',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E7D6E;margin-bottom:14px">Méthode</div>
+        <h2 style="margin:0;font:400 clamp(28px,3.4vw,40px) 'Spectral',serif;line-height:1.14;letter-spacing:-.01em;color:#1D3B52">Une démarche structurée, du bilan au suivi</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px">
+        <sc-for list="{{ methode }}" as="m" hint-placeholder-count="4">
+          <div style="position:relative;padding-top:20px">
+            <div style="font:300 46px 'Spectral',serif;color:#7C9A8B;line-height:1;margin-bottom:16px">{{ m.num }}</div>
+            <div style="height:1px;background:rgba(29,59,82,.14);margin-bottom:18px"></div>
+            <h3 style="margin:0 0 10px;font:600 21px 'Spectral',serif;color:#1D3B52">{{ m.title }}</h3>
+            <p style="margin:0;font:400 15px/1.65 'Mulish',sans-serif;color:#4A5860">{{ m.text }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- MANIFESTE -->
+    <section style="background:#1D3B52;color:#EDE7DC">
+      <div style="max-width:960px;margin:0 auto;padding:clamp(60px,8vw,110px) 24px;text-align:center">
+        <div style="font:500 34px 'Spectral',serif;color:#7C9A8B;line-height:0;margin-bottom:8px">“</div>
+        <p style="margin:0;font:300 clamp(24px,3.4vw,36px)/1.4 'Spectral',serif;font-style:italic;color:#F3EFE8;letter-spacing:-.005em">Une plaie n'est jamais seulement une lésion cutanée. Elle s'inscrit dans une histoire médicale, un quotidien, des contraintes de soin et parfois une perte de qualité de vie.</p>
+      </div>
+    </section>
+
+    <!-- RESSOURCES -->
+    <section style="max-width:1180px;margin:0 auto;padding:clamp(56px,7vw,96px) 24px">
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between;margin-bottom:40px">
+        <div style="max-width:560px">
+          <div style="font:600 12px 'Mulish',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E7D6E;margin-bottom:14px">Ressources</div>
+          <h2 style="margin:0;font:400 clamp(28px,3.4vw,40px) 'Spectral',serif;line-height:1.14;letter-spacing:-.01em;color:#1D3B52">Comprendre pour mieux accompagner</h2>
+        </div>
+        <button onClick="{{ goRessources }}" style="background:transparent;color:#1D3B52;border:1.5px solid rgba(29,59,82,.28);border-radius:999px;padding:12px 22px;font:600 14px 'Mulish',sans-serif;cursor:pointer" style-hover="border-color:#1D3B52">Toutes les ressources</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px">
+        <sc-for list="{{ articlesHome }}" as="a" hint-placeholder-count="3">
+          <button onClick="{{ goRessources }}" style="text-align:left;background:#FBF9F5;border:1px solid rgba(29,59,82,.1);border-radius:18px;overflow:hidden;cursor:pointer;padding:0;display:flex;flex-direction:column" style-hover="border-color:rgba(124,154,139,.55)">
+            <div style="aspect-ratio:16/9;background:repeating-linear-gradient(135deg,#E3DBCC,#E3DBCC 11px,#DAD1BF 11px,#DAD1BF 22px);display:flex;align-items:flex-end;padding:14px">
+              <span style="font:500 10.5px ui-monospace,Menlo,monospace;color:#867B67;background:rgba(251,249,245,.85);padding:5px 8px;border-radius:6px">{{ a.ph }}</span>
+            </div>
+            <div style="padding:22px 22px 26px">
+              <div style="font:600 11px 'Mulish',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#5E7D6E;margin-bottom:12px">Article</div>
+              <h3 style="margin:0 0 10px;font:600 19px/1.3 'Spectral',serif;color:#1D3B52">{{ a.title }}</h3>
+              <span style="font:600 14px 'Mulish',sans-serif;color:#2C5169">Lire &rarr;</span>
+            </div>
+          </button>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- CONTACT CTA -->
+    <section style="max-width:1180px;margin:0 auto;padding:0 24px clamp(60px,8vw,100px)">
+      <div style="background:#E4EAE4;border:1px solid rgba(94,125,110,.28);border-radius:24px;padding:clamp(36px,5vw,64px);text-align:center">
+        <h2 style="margin:0 auto 16px;max-width:22ch;font:400 clamp(26px,3.2vw,38px) 'Spectral',serif;line-height:1.15;color:#1D3B52">Vous souhaitez demander un avis, organiser une formation ou échanger sur une situation complexe ?</h2>
+        <div style="display:flex;justify-content:center;margin:28px 0 22px">
+          <button onClick="{{ goContact }}" style="background:#1D3B52;color:#F3EFE8;border:none;border-radius:999px;padding:16px 34px;font:700 15px 'Mulish',sans-serif;cursor:pointer" style-hover="background:#2C5169">Contacter Patricia Poggi</button>
+        </div>
+        <p style="margin:0 auto;max-width:56ch;font:400 13px/1.6 'Mulish',sans-serif;color:#6A757D">Ce formulaire ne remplace pas une consultation médicale et ne doit pas être utilisé en cas d'urgence.</p>
+      </div>
+    </section>
+
+  </div>
+  </sc-if>
+
+  <!-- ---------- À PROPOS ---------- -->
+  <sc-if value="{{ isApropos }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <section style="background:linear-gradient(180deg,#EEE9E2,#E9E2D6);border-bottom:1px solid rgba(29,59,82,.08)">
+      <div style="max-width:1180px;margin:0 auto;padding:clamp(48px,6vw,84px) 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(32px,5vw,56px);align-items:center">
+        <div>
+          <div style="font:600 12px 'Mulish',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E7D6E;margin-bottom:16px">À propos</div>
+          <h1 style="margin:0 0 24px;font:400 clamp(34px,4.6vw,52px) 'Spectral',serif;line-height:1.08;letter-spacing:-.015em;color:#1D3B52">Patricia Poggi</h1>
+          <p style="margin:0 0 18px;font:400 17px/1.75 'Mulish',sans-serif;color:#3E4A52;max-width:52ch">{{ aproposIntro1 }}</p>
+          <p style="margin:0;font:500 17px/1.75 'Mulish',sans-serif;color:#2C5169;max-width:52ch">{{ aproposIntro2 }}</p>
+        </div>
+        <div style="aspect-ratio:4/5;border-radius:20px;background:repeating-linear-gradient(135deg,#E3DBCC,#E3DBCC 12px,#DAD1BF 12px,#DAD1BF 24px);border:1px solid rgba(29,59,82,.1);display:flex;align-items:flex-end;padding:22px;box-shadow:0 24px 60px -34px rgba(29,59,82,.4)">
+          <span style="font:500 12px ui-monospace,Menlo,monospace;color:#867B67;background:rgba(238,233,226,.85);padding:7px 11px;border-radius:8px">photo professionnelle — portrait</span>
+        </div>
+      </div>
+    </section>
+
+    <section style="max-width:1180px;margin:0 auto;padding:clamp(52px,6vw,84px) 24px">
+      <div style="font:600 12px 'Mulish',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E7D6E;margin-bottom:14px">Parcours & expertise</div>
+      <h2 style="margin:0 0 36px;font:400 clamp(26px,3.2vw,36px) 'Spectral',serif;color:#1D3B52">Une spécialisation dédiée aux plaies</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px">
+        <sc-for list="{{ aproposBlocks }}" as="b" hint-placeholder-count="4">
+          <div style="background:#FBF9F5;border:1px solid rgba(29,59,82,.1);border-radius:16px;padding:26px 24px">
+            <div style="font:700 11px 'Mulish',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#5E7D6E;margin-bottom:12px">{{ b.label }}</div>
+            <p style="margin:0;font:500 15.5px/1.55 'Mulish',sans-serif;color:#6A757D">{{ b.value }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="background:#E4EAE4;border-top:1px solid rgba(94,125,110,.18);border-bottom:1px solid rgba(94,125,110,.18)">
+      <div style="max-width:1180px;margin:0 auto;padding:clamp(52px,6vw,80px) 24px">
+        <div style="font:600 12px 'Mulish',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E7D6E;margin-bottom:14px">Structures accompagnées</div>
+        <h2 style="margin:0 0 30px;font:400 clamp(26px,3.2vw,36px) 'Spectral',serif;color:#1D3B52">Une expérience de terrain, en ville et en établissement</h2>
+        <div style="display:flex;flex-wrap:wrap;gap:12px">
+          <sc-for list="{{ aproposStructures }}" as="s" hint-placeholder-count="6">
+            <span style="background:#FBF9F5;border:1px solid rgba(29,59,82,.14);border-radius:999px;padding:11px 20px;font:600 15px 'Mulish',sans-serif;color:#284453">{{ s }}</span>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="max-width:920px;margin:0 auto;padding:clamp(52px,6vw,88px) 24px">
+      <div style="font:600 12px 'Mulish',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E7D6E;margin-bottom:14px">Vision du soin</div>
+      <p style="margin:0;font:300 clamp(22px,2.8vw,30px)/1.5 'Spectral',serif;font-style:italic;color:#1D3B52">Apporter une expertise spécialisée, lisible et utile — au service d'une prise en charge réaliste, coordonnée et respectueuse du quotidien de chaque personne.</p>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ---------- EXPERTISES ---------- -->
+  <sc-if value="{{ isExpertises }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <section style="background:linear-gradient(180deg,#EEE9E2,#E9E2D6);border-bottom:1px solid rgba(29,59,82,.08)">
+      <div style="max-width:1180px;margin:0 auto;padding:clamp(48px,6vw,84px) 24px;max-width:860px">
+        <div style="font:600 12px 'Mulish',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E7D6E;margin-bottom:16px">Expertises</div>
+        <h1 style="margin:0 0 22px;font:400 clamp(32px,4.4vw,50px) 'Spectral',serif;line-height:1.1;letter-spacing:-.015em;color:#1D3B52">Un appui spécialisé pour les plaies complexes</h1>
+        <p style="margin:0;font:400 17px/1.75 'Mulish',sans-serif;color:#3E4A52;max-width:60ch">Une évaluation, une aide à la stratégie de soin et une coordination du parcours — au service des patients comme des professionnels qui les accompagnent.</p>
+      </div>
+    </section>
+
+    <section style="max-width:1180px;margin:0 auto;padding:clamp(52px,6vw,80px) 24px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px">
+        <sc-for list="{{ expertiseBlocks }}" as="e" hint-placeholder-count="6">
+          <div style="background:#FBF9F5;border:1px solid rgba(29,59,82,.1);border-radius:16px;padding:28px 26px;display:flex;flex-direction:column;gap:12px" style-hover="border-color:rgba(124,154,139,.55)">
+            <span style="width:9px;height:9px;background:#7C9A8B;border-radius:2px;transform:rotate(45deg)"></span>
+            <h3 style="margin:0;font:600 20px 'Spectral',serif;color:#1D3B52">{{ e.title }}</h3>
+            <p style="margin:0;font:400 15px/1.65 'Mulish',sans-serif;color:#4A5860">{{ e.text }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="background:#1D3B52;color:#EDE7DC">
+      <div style="max-width:1180px;margin:0 auto;padding:clamp(52px,6vw,80px) 24px">
+        <div style="max-width:600px;margin-bottom:36px">
+          <div style="font:600 12px 'Mulish',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#7C9A8B;margin-bottom:14px">Repères</div>
+          <h2 style="margin:0;font:400 clamp(26px,3.2vw,38px) 'Spectral',serif;color:#F3EFE8">Quand demander un avis spécialisé ?</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px">
+          <sc-for list="{{ avisSpecialise }}" as="a" hint-placeholder-count="8">
+            <div style="display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:18px 20px">
+              <span style="width:8px;height:8px;background:#7C9A8B;border-radius:2px;transform:rotate(45deg);flex:none"></span>
+              <span style="font:500 15.5px 'Mulish',sans-serif;color:#EDE7DC">{{ a }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="max-width:1180px;margin:0 auto;padding:clamp(44px,6vw,72px) 24px">
+      <div style="background:#F6EAE0;border:1px solid rgba(188,123,88,.35);border-left:4px solid #BC7B58;border-radius:14px;padding:26px 28px;max-width:820px">
+        <p style="margin:0;font:400 15px/1.7 'Mulish',sans-serif;color:#7A5236">L'accompagnement proposé est un appui spécialisé : évaluation, aide à la stratégie de soin et coordination. Il ne constitue pas un diagnostic médical à distance et ne promet pas de guérison. Il vient en complément — jamais en remplacement — d'une consultation ou d'un avis médical personnalisé.</p>
+      </div>
+      <div style="display:flex;justify-content:center;margin-top:44px">
+        <button onClick="{{ goContact }}" style="background:#1D3B52;color:#F3EFE8;border:none;border-radius:999px;padding:15px 30px;font:700 15px 'Mulish',sans-serif;cursor:pointer" style-hover="background:#2C5169">Demander un avis</button>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ---------- PATIENTS & PROCHES ---------- -->
+  <sc-if value="{{ isPatients }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <section style="background:linear-gradient(180deg,#EEE9E2,#E9E2D6);border-bottom:1px solid rgba(29,59,82,.08)">
+      <div style="max-width:1180px;margin:0 auto;padding:clamp(48px,6vw,84px) 24px;max-width:820px">
+        <div style="font:600 12px 'Mulish',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E7D6E;margin-bottom:16px">Patients & proches</div>
+        <h1 style="margin:0 0 22px;font:400 clamp(32px,4.4vw,50px) 'Spectral',serif;line-height:1.1;letter-spacing:-.015em;color:#1D3B52">Vous avez une plaie qui ne cicatrise pas ?</h1>
+        <p style="margin:0;font:400 17px/1.75 'Mulish',sans-serif;color:#3E4A52;max-width:58ch">Comprendre, se repérer et préparer un échange : quelques clés pour aborder plus sereinement une plaie qui tarde à guérir.</p>
+      </div>
+    </section>
+
+    <section style="max-width:900px;margin:0 auto;padding:clamp(48px,6vw,72px) 24px">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <sc-for list="{{ patientsSections }}" as="s" hint-placeholder-count="4">
+          <div style="display:flex;gap:22px;padding:26px 0;border-bottom:1px solid rgba(29,59,82,.1)">
+            <div style="font:300 34px 'Spectral',serif;color:#7C9A8B;line-height:1;flex:none;width:44px">{{ s.num }}</div>
+            <div>
+              <h3 style="margin:0 0 10px;font:600 21px 'Spectral',serif;color:#1D3B52">{{ s.title }}</h3>
+              <p style="margin:0;font:400 15.5px/1.7 'Mulish',sans-serif;color:#4A5860">{{ s.text }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="background:#E4EAE4;border-top:1px solid rgba(94,125,110,.18);border-bottom:1px solid rgba(94,125,110,.18)">
+      <div style="max-width:900px;margin:0 auto;padding:clamp(48px,6vw,72px) 24px">
+        <div style="font:600 12px 'Mulish',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E7D6E;margin-bottom:14px">À préparer</div>
+        <h2 style="margin:0 0 28px;font:400 clamp(24px,3vw,34px) 'Spectral',serif;color:#1D3B52">Quels documents rassembler</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px">
+          <sc-for list="{{ patientsPrepare }}" as="d" hint-placeholder-count="7">
+            <div style="display:flex;align-items:center;gap:13px;background:#FBF9F5;border:1px solid rgba(29,59,82,.1);border-radius:12px;padding:15px 18px">
+              <span style="width:20px;height:20px;border-radius:50%;background:rgba(124,154,139,.22);color:#4C6857;display:flex;align-items:center;justify-content:center;font:700 12px 'Mulish',sans-serif;flex:none">✓</span>
+              <span style="font:500 15px 'Mulish',sans-serif;color:#284453">{{ d }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="max-width:900px;margin:0 auto;padding:clamp(44px,6vw,72px) 24px">
+      <div style="background:#F6E4DE;border:1px solid rgba(188,88,72,.35);border-left:5px solid #C0533F;border-radius:14px;padding:28px 30px">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+          <span style="width:26px;height:26px;border-radius:50%;background:#C0533F;color:#fff;display:flex;align-items:center;justify-content:center;font:700 15px 'Mulish',sans-serif;flex:none">!</span>
+          <h3 style="margin:0;font:700 16px 'Mulish',sans-serif;letter-spacing:.02em;color:#8F3527;text-transform:uppercase">Quand consulter rapidement</h3>
+        </div>
+        <p style="margin:0;font:500 16px/1.7 'Mulish',sans-serif;color:#7A2E22">{{ patientsAlerte }}</p>
+      </div>
+      <p style="margin:26px 0 0;font:400 13px/1.6 'Mulish',sans-serif;color:#6A757D;text-align:center">Ces informations sont générales et ne remplacent pas un avis médical personnalisé.</p>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ---------- PROFESSIONNELS ---------- -->
+  <sc-if value="{{ isPro }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <section style="background:linear-gradient(180deg,#EEE9E2,#E9E2D6);border-bottom:1px solid rgba(29,59,82,.08)">
+      <div style="max-width:1180px;margin:0 auto;padding:clamp(48px,6vw,84px) 24px;max-width:860px">
+        <div style="font:600 12px 'Mulish',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E7D6E;margin-bottom:16px">Professionnels de santé</div>
+        <h1 style="margin:0 0 22px;font:400 clamp(30px,4.2vw,48px) 'Spectral',serif;line-height:1.12;letter-spacing:-.015em;color:#1D3B52">Un appui spécialisé pour les situations de cicatrisation complexe</h1>
+        <p style="margin:0;font:400 17px/1.75 'Mulish',sans-serif;color:#3E4A52;max-width:60ch">Évaluation, structuration de protocole, coordination ville-hôpital et appui aux équipes de terrain — en complément de votre prise en charge.</p>
+      </div>
+    </section>
+
+    <section style="max-width:1180px;margin:0 auto;padding:clamp(48px,6vw,72px) 24px">
+      <div style="font:600 12px 'Mulish',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E7D6E;margin-bottom:20px">Publics concernés</div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <sc-for list="{{ proPublics }}" as="p" hint-placeholder-count="8">
+          <span style="background:#FBF9F5;border:1px solid rgba(29,59,82,.14);border-radius:999px;padding:11px 20px;font:600 15px 'Mulish',sans-serif;color:#284453">{{ p }}</span>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="background:#E4EAE4;border-top:1px solid rgba(94,125,110,.18);border-bottom:1px solid rgba(94,125,110,.18)">
+      <div style="max-width:1180px;margin:0 auto;padding:clamp(48px,6vw,80px) 24px">
+        <div style="font:600 12px 'Mulish',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E7D6E;margin-bottom:14px">Services</div>
+        <h2 style="margin:0 0 32px;font:400 clamp(26px,3.2vw,36px) 'Spectral',serif;color:#1D3B52">Un accompagnement modulable</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px">
+          <sc-for list="{{ proServices }}" as="s" hint-placeholder-count="9">
+            <div style="display:flex;align-items:center;gap:14px;background:#FBF9F5;border:1px solid rgba(29,59,82,.1);border-radius:12px;padding:18px 20px">
+              <span style="width:9px;height:9px;background:#7C9A8B;border-radius:2px;transform:rotate(45deg);flex:none"></span>
+              <span style="font:500 15.5px 'Mulish',sans-serif;color:#284453">{{ s }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="max-width:1180px;margin:0 auto;padding:clamp(48px,6vw,80px) 24px">
+      <div style="font:600 12px 'Mulish',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E7D6E;margin-bottom:14px">Situations fréquentes</div>
+      <h2 style="margin:0 0 32px;font:400 clamp(26px,3.2vw,36px) 'Spectral',serif;color:#1D3B52">Des cas où un regard spécialisé aide</h2>
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <sc-for list="{{ proSituations }}" as="s" hint-placeholder-count="7">
+          <div style="display:flex;align-items:center;gap:16px;padding:18px 4px;border-bottom:1px solid rgba(29,59,82,.1)">
+            <span style="font:600 14px 'Mulish',sans-serif;color:#7C9A8B;flex:none;width:26px">{{ s.num }}</span>
+            <span style="font:500 16px 'Mulish',sans-serif;color:#284453">{{ s.label }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;justify-content:center;margin-top:44px">
+        <button onClick="{{ goContact }}" style="background:#1D3B52;color:#F3EFE8;border:none;border-radius:999px;padding:15px 30px;font:700 15px 'Mulish',sans-serif;cursor:pointer" style-hover="background:#2C5169">Échanger sur une situation</button>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ---------- FORMATIONS ---------- -->
+  <sc-if value="{{ isFormations }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <section style="background:linear-gradient(180deg,#EEE9E2,#E9E2D6);border-bottom:1px solid rgba(29,59,82,.08)">
+      <div style="max-width:1180px;margin:0 auto;padding:clamp(48px,6vw,84px) 24px;max-width:820px">
+        <div style="font:600 12px 'Mulish',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E7D6E;margin-bottom:16px">Formations</div>
+        <h1 style="margin:0 0 22px;font:400 clamp(32px,4.4vw,50px) 'Spectral',serif;line-height:1.1;letter-spacing:-.015em;color:#1D3B52">Formations plaies &amp; cicatrisation</h1>
+        <p style="margin:0;font:400 17px/1.75 'Mulish',sans-serif;color:#3E4A52;max-width:58ch">Renforcer les compétences des équipes autour de l'évaluation, du choix des soins et de la prévention des plaies chroniques.</p>
+      </div>
+    </section>
+
+    <section style="max-width:1180px;margin:0 auto;padding:clamp(48px,6vw,72px) 24px">
+      <div style="font:600 12px 'Mulish',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E7D6E;margin-bottom:20px">Publics</div>
+      <div style="display:flex;flex-wrap:wrap;gap:12px">
+        <sc-for list="{{ formPublics }}" as="p" hint-placeholder-count="7">
+          <span style="background:#FBF9F5;border:1px solid rgba(29,59,82,.14);border-radius:999px;padding:11px 20px;font:600 15px 'Mulish',sans-serif;color:#284453">{{ p }}</span>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="background:#E4EAE4;border-top:1px solid rgba(94,125,110,.18);border-bottom:1px solid rgba(94,125,110,.18)">
+      <div style="max-width:1180px;margin:0 auto;padding:clamp(48px,6vw,80px) 24px">
+        <div style="font:600 12px 'Mulish',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E7D6E;margin-bottom:14px">Modules possibles</div>
+        <h2 style="margin:0 0 32px;font:400 clamp(26px,3.2vw,36px) 'Spectral',serif;color:#1D3B52">Des contenus adaptables à vos besoins</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px">
+          <sc-for list="{{ formModules }}" as="m" hint-placeholder-count="9">
+            <div style="background:#FBF9F5;border:1px solid rgba(29,59,82,.1);border-radius:12px;padding:20px 22px;display:flex;align-items:center;gap:14px">
+              <span style="width:9px;height:9px;background:#7C9A8B;border-radius:2px;transform:rotate(45deg);flex:none"></span>
+              <span style="font:600 15.5px 'Mulish',sans-serif;color:#284453">{{ m }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="max-width:1180px;margin:0 auto;padding:clamp(48px,6vw,80px) 24px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:40px;align-items:start">
+        <div>
+          <div style="font:600 12px 'Mulish',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E7D6E;margin-bottom:20px">Formats</div>
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <sc-for list="{{ formFormats }}" as="f" hint-placeholder-count="5">
+              <div style="display:flex;align-items:center;gap:14px;padding:16px 4px;border-bottom:1px solid rgba(29,59,82,.1)">
+                <span style="width:8px;height:8px;background:#7C9A8B;border-radius:2px;transform:rotate(45deg);flex:none"></span>
+                <span style="font:500 16px 'Mulish',sans-serif;color:#284453">{{ f }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="background:#1D3B52;border-radius:20px;padding:clamp(30px,4vw,44px);color:#EDE7DC">
+          <h3 style="margin:0 0 14px;font:400 24px 'Spectral',serif;color:#F3EFE8">Organiser une formation</h3>
+          <p style="margin:0 0 26px;font:400 15px/1.7 'Mulish',sans-serif;color:#B9C4CB">Vous souhaitez former une équipe ou construire un programme sur mesure pour votre structure ? Échangeons sur vos besoins et vos contraintes.</p>
+          <button onClick="{{ goContact }}" style="background:#7C9A8B;color:#132833;border:none;border-radius:999px;padding:15px 28px;font:700 15px 'Mulish',sans-serif;cursor:pointer" style-hover="background:#8FA99C">Demander une formation</button>
+        </div>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ---------- RESSOURCES ---------- -->
+  <sc-if value="{{ isRessources }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <section style="background:linear-gradient(180deg,#EEE9E2,#E9E2D6);border-bottom:1px solid rgba(29,59,82,.08)">
+      <div style="max-width:1180px;margin:0 auto;padding:clamp(48px,6vw,84px) 24px;max-width:820px">
+        <div style="font:600 12px 'Mulish',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E7D6E;margin-bottom:16px">Ressources</div>
+        <h1 style="margin:0 0 22px;font:400 clamp(32px,4.4vw,50px) 'Spectral',serif;line-height:1.1;letter-spacing:-.015em;color:#1D3B52">Comprendre les plaies et la cicatrisation</h1>
+        <p style="margin:0;font:400 17px/1.75 'Mulish',sans-serif;color:#3E4A52;max-width:60ch">Des repères pédagogiques pour patients, proches et soignants. Ces contenus sont informatifs et ne remplacent pas un avis médical personnalisé.</p>
+      </div>
+    </section>
+
+    <section style="max-width:960px;margin:0 auto;padding:clamp(44px,6vw,72px) 24px">
+      <div style="display:flex;flex-direction:column;gap:26px">
+        <sc-for list="{{ ressourcesArticles }}" as="a" hint-placeholder-count="6">
+          <article style="background:#FBF9F5;border:1px solid rgba(29,59,82,.1);border-radius:18px;padding:clamp(26px,3vw,40px);overflow:hidden">
+            <div style="font:600 11px 'Mulish',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#5E7D6E;margin-bottom:14px">Article pédagogique</div>
+            <h2 style="margin:0 0 14px;font:600 clamp(22px,2.6vw,28px)/1.25 'Spectral',serif;color:#1D3B52">{{ a.title }}</h2>
+            <p style="margin:0 0 14px;font:500 16.5px/1.6 'Mulish',sans-serif;color:#2C5169">{{ a.intro }}</p>
+            <p style="margin:0 0 22px;font:400 15.5px/1.75 'Mulish',sans-serif;color:#4A5860">{{ a.body }}</p>
+            <div style="background:rgba(124,154,139,.14);border:1px solid rgba(94,125,110,.28);border-radius:12px;padding:18px 20px">
+              <div style="font:700 11px 'Mulish',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#4C6857;margin-bottom:8px">À retenir</div>
+              <p style="margin:0;font:500 15px/1.6 'Mulish',sans-serif;color:#2E4A3B">{{ a.retenir }}</p>
+            </div>
+            <p style="margin:18px 0 0;font:400 12.5px/1.6 'Mulish',sans-serif;color:#8A929A;font-style:italic">Cet article ne remplace pas un avis médical personnalisé.</p>
+          </article>
+        </sc-for>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ---------- CONTACT ---------- -->
+  <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <section style="background:linear-gradient(180deg,#EEE9E2,#E9E2D6);border-bottom:1px solid rgba(29,59,82,.08)">
+      <div style="max-width:1180px;margin:0 auto;padding:clamp(48px,6vw,80px) 24px;max-width:820px">
+        <div style="font:600 12px 'Mulish',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E7D6E;margin-bottom:16px">Contact</div>
+        <h1 style="margin:0 0 22px;font:400 clamp(32px,4.4vw,50px) 'Spectral',serif;line-height:1.1;letter-spacing:-.015em;color:#1D3B52">Prendre contact</h1>
+        <p style="margin:0;font:400 17px/1.75 'Mulish',sans-serif;color:#3E4A52;max-width:56ch">Demander un avis, organiser une formation ou échanger sur une situation complexe : décrivez votre demande, une réponse vous sera apportée.</p>
+      </div>
+    </section>
+
+    <section style="max-width:1120px;margin:0 auto;padding:clamp(44px,6vw,72px) 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:clamp(28px,4vw,48px);align-items:start">
+      <form onSubmit="{{ onSubmit }}" style="background:#FBF9F5;border:1px solid rgba(29,59,82,.1);border-radius:20px;padding:clamp(26px,3vw,40px);display:flex;flex-direction:column;gap:18px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <label style="display:flex;flex-direction:column;gap:7px">
+            <span style="font:600 13px 'Mulish',sans-serif;color:#3E4A52">Nom</span>
+            <input type="text" style="border:1px solid rgba(29,59,82,.2);border-radius:10px;padding:12px 14px;font:400 15px 'Mulish',sans-serif;color:#1D3B52;background:#fff" style-focus="border-color:#7C9A8B;outline:none">
+          </label>
+          <label style="display:flex;flex-direction:column;gap:7px">
+            <span style="font:600 13px 'Mulish',sans-serif;color:#3E4A52">Prénom</span>
+            <input type="text" style="border:1px solid rgba(29,59,82,.2);border-radius:10px;padding:12px 14px;font:400 15px 'Mulish',sans-serif;color:#1D3B52;background:#fff" style-focus="border-color:#7C9A8B;outline:none">
+          </label>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <label style="display:flex;flex-direction:column;gap:7px">
+            <span style="font:600 13px 'Mulish',sans-serif;color:#3E4A52">Téléphone</span>
+            <input type="tel" style="border:1px solid rgba(29,59,82,.2);border-radius:10px;padding:12px 14px;font:400 15px 'Mulish',sans-serif;color:#1D3B52;background:#fff" style-focus="border-color:#7C9A8B;outline:none">
+          </label>
+          <label style="display:flex;flex-direction:column;gap:7px">
+            <span style="font:600 13px 'Mulish',sans-serif;color:#3E4A52">Email</span>
+            <input type="email" style="border:1px solid rgba(29,59,82,.2);border-radius:10px;padding:12px 14px;font:400 15px 'Mulish',sans-serif;color:#1D3B52;background:#fff" style-focus="border-color:#7C9A8B;outline:none">
+          </label>
+        </div>
+        <label style="display:flex;flex-direction:column;gap:7px">
+          <span style="font:600 13px 'Mulish',sans-serif;color:#3E4A52">Vous êtes</span>
+          <select style="border:1px solid rgba(29,59,82,.2);border-radius:10px;padding:12px 14px;font:400 15px 'Mulish',sans-serif;color:#1D3B52;background:#fff" style-focus="border-color:#7C9A8B;outline:none">
+            <sc-for list="{{ contactProfils }}" as="o" hint-placeholder-count="5">
+              <option>{{ o }}</option>
+            </sc-for>
+          </select>
+        </label>
+        <label style="display:flex;flex-direction:column;gap:7px">
+          <span style="font:600 13px 'Mulish',sans-serif;color:#3E4A52">Motif général</span>
+          <input type="text" placeholder="Avis spécialisé, formation, coordination…" style="border:1px solid rgba(29,59,82,.2);border-radius:10px;padding:12px 14px;font:400 15px 'Mulish',sans-serif;color:#1D3B52;background:#fff" style-focus="border-color:#7C9A8B;outline:none">
+        </label>
+        <label style="display:flex;flex-direction:column;gap:7px">
+          <span style="font:600 13px 'Mulish',sans-serif;color:#3E4A52">Message court</span>
+          <textarea rows="4" style="border:1px solid rgba(29,59,82,.2);border-radius:10px;padding:12px 14px;font:400 15px 'Mulish',sans-serif;color:#1D3B52;background:#fff;resize:vertical" style-focus="border-color:#7C9A8B;outline:none"></textarea>
+        </label>
+        <button type="submit" style="background:#1D3B52;color:#F3EFE8;border:none;border-radius:999px;padding:15px 28px;font:700 15px 'Mulish',sans-serif;cursor:pointer;margin-top:4px" style-hover="background:#2C5169">Envoyer ma demande</button>
+      </form>
+
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <div style="background:#F6E4DE;border:1px solid rgba(188,88,72,.35);border-left:5px solid #C0533F;border-radius:14px;padding:22px 24px">
+          <h3 style="margin:0 0 10px;font:700 13px 'Mulish',sans-serif;letter-spacing:.04em;text-transform:uppercase;color:#8F3527">Urgence</h3>
+          <p style="margin:0;font:500 14.5px/1.65 'Mulish',sans-serif;color:#7A2E22">Ce formulaire ne doit pas être utilisé pour une urgence médicale. En cas d'urgence ou d'aggravation rapide, contactez un professionnel de santé ou les services d'urgence.</p>
+        </div>
+        <div style="background:#FBF9F5;border:1px solid rgba(29,59,82,.1);border-radius:14px;padding:22px 24px">
+          <h3 style="margin:0 0 10px;font:600 16px 'Spectral',serif;color:#1D3B52">Confidentialité</h3>
+          <p style="margin:0;font:400 14px/1.7 'Mulish',sans-serif;color:#4A5860">Merci de ne pas transmettre de photographies de plaies ni de documents médicaux via ce formulaire. Les informations envoyées servent uniquement à répondre à votre demande.</p>
+        </div>
+        <div style="background:#FBF9F5;border:1px solid rgba(29,59,82,.1);border-radius:14px;padding:22px 24px">
+          <h3 style="margin:0 0 10px;font:600 16px 'Spectral',serif;color:#1D3B52">Coordonnées</h3>
+          <div style="display:flex;flex-direction:column;gap:8px;font:500 14.5px 'Mulish',sans-serif;color:#6A757D">
+            <span>[Ajouter e-mail professionnel]</span>
+            <span>[Ajouter téléphone]</span>
+            <span>[Ajouter zone d'intervention]</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  </sc-if>
+
+  <!-- ---------- MENTIONS ---------- -->
+  <sc-if value="{{ isMentions }}" hint-placeholder-val="{{ false }}">
+  <div>
+    <section style="background:linear-gradient(180deg,#EEE9E2,#E9E2D6);border-bottom:1px solid rgba(29,59,82,.08)">
+      <div style="max-width:1180px;margin:0 auto;padding:clamp(48px,6vw,80px) 24px;max-width:820px">
+        <div style="font:600 12px 'Mulish',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#5E7D6E;margin-bottom:16px">Informations légales</div>
+        <h1 style="margin:0 0 22px;font:400 clamp(30px,4vw,46px) 'Spectral',serif;line-height:1.1;letter-spacing:-.015em;color:#1D3B52">Mentions légales &amp; confidentialité</h1>
+        <p style="margin:0;font:400 16px/1.75 'Mulish',sans-serif;color:#3E4A52;max-width:58ch">Les éléments ci-dessous sont à compléter avec les informations officielles avant la mise en ligne du site.</p>
+      </div>
+    </section>
+
+    <section style="max-width:820px;margin:0 auto;padding:clamp(44px,6vw,72px) 24px">
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <sc-for list="{{ mentionsBlocks }}" as="m" hint-placeholder-count="6">
+          <div style="padding:28px 0;border-bottom:1px solid rgba(29,59,82,.1)">
+            <h2 style="margin:0 0 12px;font:600 20px 'Spectral',serif;color:#1D3B52">{{ m.title }}</h2>
+            <p style="margin:0;font:400 15.5px/1.75 'Mulish',sans-serif;color:#4A5860">{{ m.text }}</p>
+          </div>
+        </sc-for>
+      </div>
+      <p style="margin:32px 0 0;font:400 13px/1.7 'Mulish',sans-serif;color:#6A757D;font-style:italic">Ce site a une vocation informative. Il ne délivre pas de diagnostic en ligne et ne remplace pas une consultation ou un avis médical personnalisé.</p>
+    </section>
+  </div>
+  </sc-if>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer style="background:#20313D;color:#B9C4CB">
+    <div style="max-width:1180px;margin:0 auto;padding:clamp(48px,6vw,72px) 24px 32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:40px">
+      <div style="max-width:280px">
+        <div style="display:flex;align-items:center;gap:11px;margin-bottom:16px">
+          <img src="assets/mark-poggi.png" width="38" height="38" alt="" style="background:#EEE9E2;border-radius:8px;padding:3px">
+          <span style="display:flex;flex-direction:column;line-height:1.05">
+            <span style="font:600 15px 'Spectral',serif;color:#F3EFE8">Patricia Poggi</span>
+            <span style="font:600 9px 'Mulish',sans-serif;color:#7C9A8B;letter-spacing:.18em;text-transform:uppercase;margin-top:2px">Plaies &amp; Cicatrisation</span>
+          </span>
+        </div>
+        <p style="margin:0;font:400 13.5px/1.7 'Mulish',sans-serif;color:#93A0A8">Expertise, accompagnement et coordination des soins pour les plaies complexes, chroniques ou à cicatrisation difficile.</p>
+      </div>
+      <div>
+        <div style="font:700 11px 'Mulish',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#7C9A8B;margin-bottom:16px">Navigation</div>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <sc-for list="{{ footerNav }}" as="f" hint-placeholder-count="7">
+            <button onClick="{{ f.onClick }}" style="text-align:left;background:none;border:none;cursor:pointer;padding:0;font:500 14px 'Mulish',sans-serif;color:#B9C4CB" style-hover="color:#F3EFE8">{{ f.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div>
+        <div style="font:700 11px 'Mulish',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#7C9A8B;margin-bottom:16px">Informations</div>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <button onClick="{{ goMentions }}" style="text-align:left;background:none;border:none;cursor:pointer;padding:0;font:500 14px 'Mulish',sans-serif;color:#B9C4CB" style-hover="color:#F3EFE8">Mentions légales</button>
+          <button onClick="{{ goMentions }}" style="text-align:left;background:none;border:none;cursor:pointer;padding:0;font:500 14px 'Mulish',sans-serif;color:#B9C4CB" style-hover="color:#F3EFE8">Politique de confidentialité</button>
+          <button onClick="{{ goMentions }}" style="text-align:left;background:none;border:none;cursor:pointer;padding:0;font:500 14px 'Mulish',sans-serif;color:#B9C4CB" style-hover="color:#F3EFE8">Accessibilité</button>
+          <button onClick="{{ goContact }}" style="text-align:left;background:none;border:none;cursor:pointer;padding:0;font:500 14px 'Mulish',sans-serif;color:#B9C4CB" style-hover="color:#F3EFE8">Plan du site</button>
+        </div>
+      </div>
+      <div>
+        <div style="font:700 11px 'Mulish',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#7C9A8B;margin-bottom:16px">Contact</div>
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <button onClick="{{ goContact }}" style="text-align:left;background:none;border:none;cursor:pointer;padding:0;font:500 14px 'Mulish',sans-serif;color:#B9C4CB" style-hover="color:#F3EFE8">Formulaire de contact</button>
+          <span style="font:500 14px 'Mulish',sans-serif;color:#93A0A8">[Ajouter e-mail]</span>
+          <span style="font:500 14px 'Mulish',sans-serif;color:#93A0A8">[Ajouter téléphone]</span>
+          <span style="font:500 14px 'Mulish',sans-serif;color:#93A0A8">[Réseaux professionnels]</span>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.08)">
+      <div style="max-width:1180px;margin:0 auto;padding:20px 24px;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center">
+        <span style="font:400 12.5px 'Mulish',sans-serif;color:#7F8C94">© 2026 Patricia Poggi — Plaies &amp; Cicatrisation. Tous droits réservés.</span>
+        <span style="font:400 12px/1.5 'Mulish',sans-serif;color:#7F8C94;max-width:52ch;text-align:right">Ce site ne remplace pas une consultation ou un avis médical personnalisé.</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { page: 'accueil', menuOpen: false, w: (typeof window !== 'undefined' ? window.innerWidth : 1280) };
+
+  componentDidMount() {
+    this._onR = () => this.setState({ w: window.innerWidth });
+    window.addEventListener('resize', this._onR);
+  }
+  componentWillUnmount() { if (this._onR) window.removeEventListener('resize', this._onR); }
+
+  nav(page) {
+    this.setState({ page, menuOpen: false });
+    try { window.scrollTo({ top: 0, behavior: 'auto' }); } catch (e) {}
+  }
+
+  renderVals() {
+    const p = this.state.page;
+    const w = this.state.w;
+    const collapse = w < 1040;
+    const go = (k) => () => this.nav(k);
+
+    const navDefs = [
+      ['accueil', 'Accueil'], ['apropos', 'À propos'], ['expertises', 'Expertises'],
+      ['patients', 'Patients'], ['professionnels', 'Professionnels'],
+      ['formations', 'Formations'], ['ressources', 'Ressources']
+    ];
+    const navItems = navDefs.map(([k, label]) => ({
+      label, onClick: go(k), active: p === k,
+      style: {
+        font: (p === k ? '700' : '500') + " 13.5px/1 'Mulish',sans-serif",
+        color: p === k ? '#1D3B52' : '#4A5860', background: 'none', border: 'none',
+        cursor: 'pointer', padding: '6px 0', borderBottom: '2px solid ' + (p === k ? '#7C9A8B' : 'transparent'),
+        whiteSpace: 'nowrap'
+      }
+    }));
+    const mobileNavItems = navDefs.map(([k, label]) => ({
+      label, onClick: go(k),
+      style: {
+        textAlign: 'left', background: 'none', border: 'none', cursor: 'pointer',
+        padding: '13px 4px', borderBottom: '1px solid rgba(29,59,82,.08)',
+        font: (p === k ? '700' : '500') + " 16px 'Mulish',sans-serif",
+        color: p === k ? '#1D3B52' : '#3E4A52'
+      }
+    }));
+    const footerNav = [...navDefs, ['contact', 'Contact']].map(([k, label]) => ({ label, onClick: go(k) }));
+
+    return {
+      page: p, collapse, showDesktopNav: !collapse,
+      menuOpen: this.state.menuOpen,
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      navItems, mobileNavItems, footerNav,
+      isAccueil: p === 'accueil', isApropos: p === 'apropos', isExpertises: p === 'expertises',
+      isPatients: p === 'patients', isPro: p === 'professionnels', isFormations: p === 'formations',
+      isRessources: p === 'ressources', isContact: p === 'contact', isMentions: p === 'mentions',
+      goAccueil: go('accueil'), goApropos: go('apropos'), goExpertises: go('expertises'),
+      goPatients: go('patients'), goPro: go('professionnels'), goFormations: go('formations'),
+      goRessources: go('ressources'), goContact: go('contact'), goMentions: go('mentions'),
+      onSubmit: (e) => { if (e && e.preventDefault) e.preventDefault(); },
+
+      pourQui: [
+        { num: '1', title: 'Patients & proches', text: 'Comprendre une plaie qui ne cicatrise pas, préparer une consultation et être orienté.' },
+        { num: '2', title: 'Professionnels de santé', text: 'Bénéficier d\u2019un appui spécialisé pour les situations de cicatrisation complexe.' },
+        { num: '3', title: 'Établissements', text: 'Former les équipes, structurer les protocoles et améliorer les pratiques autour des plaies chroniques.' }
+      ],
+      domaines: ['Plaies chroniques', 'Ulcères de jambe', 'Escarres', 'Pied diabétique', 'Plaies post-opératoires', 'Retards de cicatrisation', 'Douleur au soin', 'Prévention des récidives'],
+      methode: [
+        { num: '01', title: 'Évaluer', text: 'Comprendre la plaie, son évolution, le contexte médical et les facteurs de retard.' },
+        { num: '02', title: 'Coordonner', text: 'Travailler avec les professionnels déjà impliqués dans le parcours de soin.' },
+        { num: '03', title: 'Adapter', text: 'Construire une stratégie réaliste, traçable et réévaluable.' },
+        { num: '04', title: 'Prévenir', text: 'Limiter les complications, les récidives et les ruptures de suivi.' }
+      ],
+      articlesHome: [
+        { title: 'Plaie chronique : quand demander un avis ?', ph: 'illustration sobre — carnet clinique' },
+        { title: 'Escarre : les signes à surveiller', ph: 'illustration sobre — prévention' },
+        { title: 'Cicatrisation difficile : pourquoi une plaie peut stagner ?', ph: 'illustration sobre — matériel propre' }
+      ],
+
+      // ---------- À PROPOS ----------
+      aproposIntro1: "Les plaies chroniques ou complexes nécessitent rarement une réponse unique. Elles demandent une évaluation globale : état de la plaie, douleur, mobilité, pathologies associées, nutrition, observance, environnement de soin et coordination entre professionnels.",
+      aproposIntro2: "Mon rôle est d\u2019apporter une expertise spécialisée, lisible et utile, pour aider à construire une prise en charge adaptée.",
+      aproposBlocks: [
+        { label: 'Statut professionnel', value: '[Ajouter ici le statut professionnel exact]' },
+        { label: 'Diplômes & formations', value: '[Ajouter ici les diplômes]' },
+        { label: 'Expérience', value: '[Ajouter ici les années d\u2019expérience]' },
+        { label: 'Collaborations', value: '[Ajouter ici les structures ou collaborations]' }
+      ],
+      aproposStructures: ['Domicile', 'Cabinet', 'EHPAD', 'HAD', 'Établissements de santé', 'Équipes de soins'],
+
+      // ---------- EXPERTISES ----------
+      expertiseBlocks: [
+        { title: 'Plaies chroniques', text: "Une plaie qui ne cicatrise pas dans les délais attendus nécessite une évaluation globale des facteurs qui freinent la réparation tissulaire." },
+        { title: 'Ulcères veineux, artériels ou mixtes', text: "Identifier l\u2019origine vasculaire est déterminant pour orienter la stratégie de soin et l\u2019indication éventuelle d\u2019une compression." },
+        { title: 'Escarres', text: "Évaluation du stade, prévention et adaptation des soins selon la localisation, la mobilité et l\u2019état général de la personne." },
+        { title: 'Plaies du pied diabétique', text: "Une vigilance particulière s\u2019impose : le pied diabétique expose à des complications rapides qui justifient un suivi rapproché." },
+        { title: 'Plaies post-opératoires difficiles', text: "Accompagnement des cicatrisations qui se compliquent ou se prolongent après une intervention chirurgicale." },
+        { title: 'Plaies douloureuses', text: "Intégrer la douleur ressentie pendant et entre les soins dans la stratégie thérapeutique et le choix des pansements." },
+        { title: 'Plaies exsudatives', text: "Gérer un exsudat abondant par un choix de pansement adapté, réévalué régulièrement selon l\u2019évolution." },
+        { title: 'Retards de cicatrisation', text: "Rechercher et corriger les facteurs — locaux, généraux, environnementaux — qui font stagner la plaie." },
+        { title: 'Prévention des récidives', text: "Limiter la réapparition des plaies par un accompagnement durable et des mesures de prévention adaptées." },
+        { title: 'Aide au choix et à l\u2019adaptation des pansements', text: "Un choix raisonné, sans solution universelle, ajusté à chaque plaie et à chaque contexte de soin." },
+        { title: 'Coordination du parcours de soin', text: "Faire le lien entre les professionnels impliqués pour assurer la cohérence et la continuité de la prise en charge." }
+      ],
+      avisSpecialise: ['Plaie qui ne cicatrise pas', "Plaie qui s\u2019aggrave", 'Douleur importante', 'Exsudat abondant', 'Odeur inhabituelle', 'Récidive', 'Difficulté à trouver le bon protocole de soin', 'Situation complexe impliquant plusieurs professionnels'],
+
+      // ---------- PATIENTS ----------
+      patientsSections: [
+        { num: '01', title: 'Comprendre ce qu\u2019est une plaie chronique', text: "Une plaie est dite chronique lorsqu\u2019elle ne cicatrise pas dans les délais habituellement attendus. Ce n\u2019est pas une fatalité, mais le signe qu\u2019une évaluation plus approfondie est utile." },
+        { num: '02', title: 'Pourquoi une plaie peut avoir du mal à cicatriser', text: "De nombreux facteurs peuvent ralentir la cicatrisation : circulation, diabète, nutrition, infection, pression, douleur ou soins non adaptés. Souvent, plusieurs facteurs se combinent." },
+        { num: '03', title: 'Comment préparer un échange ou une consultation', text: "Rassembler les bonnes informations en amont permet de gagner du temps et d\u2019obtenir un avis plus précis sur votre situation." },
+        { num: '04', title: 'Quand consulter rapidement', text: "Certains signes doivent alerter et conduire à contacter rapidement un professionnel de santé (voir l\u2019encadré ci-dessous)." }
+      ],
+      patientsPrepare: ['Ordonnances', 'Liste des traitements', 'Antécédents médicaux importants', 'Compte-rendu opératoire si nécessaire', 'Résultats récents si disponibles', 'Évolution de la plaie', 'Nom des professionnels déjà impliqués'],
+      patientsAlerte: "En cas de fièvre, douleur importante, rougeur qui s\u2019étend, écoulement purulent, mauvaise odeur brutale, aggravation rapide, plaie chez une personne diabétique ou altération de l\u2019état général, il faut contacter rapidement un professionnel de santé ou un service d\u2019urgence.",
+
+      // ---------- PROFESSIONNELS ----------
+      proPublics: ['Médecins', 'Infirmiers libéraux', 'Pharmaciens', 'EHPAD', 'HAD', 'SSIAD', 'Établissements de santé', 'Équipes de coordination'],
+      proServices: ['Avis spécialisé sur situation complexe', 'Aide à l\u2019évaluation d\u2019une plaie', 'Aide à la structuration d\u2019un protocole de soin', 'Coordination ville-hôpital', 'Appui aux équipes de terrain', 'Formation', 'Audit des pratiques', 'Mise à jour des protocoles internes', 'Traçabilité et transmissions'],
+      proSituations: [
+        { num: '01', label: 'Ulcère qui stagne' },
+        { num: '02', label: 'Escarre récidivante' },
+        { num: '03', label: 'Plaie très exsudative' },
+        { num: '04', label: 'Douleur pendant les soins' },
+        { num: '05', label: 'Pansements changés sans stratégie claire' },
+        { num: '06', label: 'Suspicion de facteur vasculaire ou métabolique' },
+        { num: '07', label: 'Besoin de coordination entre prescripteur, infirmiers et structure' }
+      ],
+
+      // ---------- FORMATIONS ----------
+      formPublics: ['Infirmiers', 'Aides-soignants', 'Équipes EHPAD', 'HAD', 'SSIAD', 'Structures de soins', 'Étudiants ou professionnels en perfectionnement'],
+      formModules: ['Évaluation d\u2019une plaie', 'Plaies chroniques', 'Ulcères de jambe', 'Escarres : prévention et prise en charge', 'Pied diabétique', 'Choix raisonné des pansements', 'Douleur et soins de plaies', 'Traçabilité et transmissions', 'Cas pratiques et analyse de situations'],
+      formFormats: ['Présentiel', 'Visioconférence', 'Atelier terrain', 'Formation intra-établissement', 'Audit + accompagnement'],
+
+      // ---------- RESSOURCES ----------
+      ressourcesArticles: [
+        { title: "Plaie chronique : à partir de quand s\u2019inquiéter ?", intro: "Toute plaie qui ne progresse pas après plusieurs semaines mérite un regard attentif.", body: "Le délai attendu de cicatrisation dépend du type de plaie et du contexte médical. Lorsqu\u2019une plaie stagne ou régresse malgré des soins réguliers, il est utile de réévaluer l\u2019ensemble de la situation plutôt que de changer seulement de pansement.", retenir: "Une plaie qui n\u2019évolue pas malgré des soins réguliers justifie une réévaluation globale." },
+        { title: 'Pourquoi une plaie ne cicatrise pas ?', intro: "La cicatrisation est un processus qui peut être freiné par de multiples facteurs.", body: "Circulation, diabète, infection, pression, nutrition, douleur ou soins inadaptés : les causes de retard sont souvent multiples et intriquées. Les identifier est la première étape d\u2019une stratégie efficace.", retenir: "Chercher la cause du retard est plus utile que multiplier les changements de pansement." },
+        { title: 'Ulcère de jambe : comprendre les causes', intro: "Derrière un ulcère de jambe se cache presque toujours une cause vasculaire.", body: "Origine veineuse, artérielle ou mixte : la nature de l\u2019atteinte oriente la prise en charge, notamment l\u2019indication ou non d\u2019une compression. Un bilan vasculaire est souvent nécessaire.", retenir: "L\u2019origine vasculaire conditionne le traitement, dont l\u2019éventuelle compression." },
+        { title: 'Escarre : prévention, signes d\u2019alerte et prise en charge', intro: "L\u2019escarre est en grande partie évitable par une prévention adaptée.", body: "Mobilisation, positionnement, supports, nutrition et surveillance de la peau sont essentiels. Une rougeur qui ne blanchit pas est un signal d\u2019alerte à prendre au sérieux.", retenir: "La prévention et la surveillance quotidienne de la peau sont déterminantes." },
+        { title: 'Pied diabétique : pourquoi la vigilance est essentielle', intro: "Chez la personne diabétique, une plaie du pied peut évoluer rapidement.", body: "La perte de sensibilité et les troubles vasculaires masquent souvent la gravité. Toute plaie du pied chez une personne diabétique doit être évaluée sans attendre.", retenir: "Toute plaie du pied chez un patient diabétique impose une évaluation rapide." },
+        { title: "Pansements : pourquoi il n\u2019existe pas de solution universelle", intro: "Le \u201cbon pansement\u201d dépend de la plaie, pas d\u2019une habitude.", body: "Le choix se fonde sur le type de plaie, l\u2019exsudat, la douleur, l\u2019état de la peau et l\u2019objectif du soin. Il doit être réévalué au fil de l\u2019évolution.", retenir: "Le pansement se choisit selon la plaie et se réévalue régulièrement." },
+        { title: 'Douleur au changement de pansement : que peut-on faire ?', intro: "La douleur au soin n\u2019est pas une fatalité et peut être anticipée.", body: "Choix des matériaux, techniques de retrait, rythme des soins et mesures antalgiques adaptées permettent souvent de réduire nettement l\u2019inconfort.", retenir: "La douleur au soin peut et doit être anticipée dans la stratégie de soin." },
+        { title: 'Nutrition et cicatrisation : quel lien ?', intro: "La cicatrisation est aussi une question d\u2019apports nutritionnels.", body: "Un déficit en protéines, en énergie ou en certains micronutriments peut ralentir la réparation tissulaire. L\u2019état nutritionnel fait partie de l\u2019évaluation globale.", retenir: "Un état nutritionnel altéré peut freiner la cicatrisation." },
+        { title: "Compression veineuse : pourquoi elle est parfois indispensable", intro: "Dans l\u2019ulcère veineux, la compression est souvent le traitement de fond.", body: "Elle agit sur la cause du retard de cicatrisation. Son indication et ses modalités doivent être validées après un bilan vasculaire.", retenir: "Dans l\u2019ulcère veineux, la compression traite la cause, après bilan vasculaire." }
+      ],
+
+      // ---------- CONTACT ----------
+      contactProfils: ['Patient', 'Proche', 'Professionnel de santé', 'Établissement', 'Autre'],
+
+      // ---------- MENTIONS ----------
+      mentionsBlocks: [
+        { title: 'Éditeur du site', text: "[Ajouter ici l\u2019identité de l\u2019éditeur, le statut professionnel, l\u2019adresse professionnelle et les coordonnées de contact.]" },
+        { title: 'Hébergement', text: "[Ajouter ici le nom et les coordonnées de l\u2019hébergeur du site.]" },
+        { title: 'Propriété intellectuelle', text: "L\u2019ensemble des contenus de ce site (textes, visuels, identité graphique) est protégé. Toute reproduction sans autorisation est interdite." },
+        { title: 'Données personnelles', text: "Les informations transmises via le formulaire de contact sont utilisées uniquement pour répondre à votre demande. Conformément au RGPD, vous disposez d\u2019un droit d\u2019accès, de rectification et de suppression de vos données. [Ajouter ici les modalités d\u2019exercice de ces droits.]" },
+        { title: 'Cookies', text: "[Préciser ici l\u2019usage éventuel de cookies de mesure d\u2019audience ou de fonctionnement, et les moyens de les paramétrer.]" },
+        { title: 'Accessibilité', text: "Ce site vise une lecture claire et accessible. [Ajouter ici les engagements et le niveau de conformité visé.]" }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

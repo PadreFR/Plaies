@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — Patricia Poggi — Plaies & Cicatrisation</title>
+<meta name="description" content="Demander un avis spécialisé, organiser une formation ou échanger sur une situation complexe.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="brand">
+      <img src="assets/mark-poggi.png" alt="Logo Poggi" width="42" height="42">
+      <span class="brand-text">
+        <span class="brand-name">Patricia Poggi</span>
+        <span class="brand-sub">Plaies &amp; Cicatrisation</span>
+      </span>
+    </a>
+
+    <nav class="desktop-nav">
+          <a href="index.html" class="nav-link">Accueil</a>
+          <a href="a-propos.html" class="nav-link">À propos</a>
+          <a href="expertises.html" class="nav-link">Expertises</a>
+          <a href="patients-proches.html" class="nav-link">Patients</a>
+          <a href="professionnels.html" class="nav-link">Professionnels</a>
+          <a href="formations.html" class="nav-link">Formations</a>
+          <a href="ressources.html" class="nav-link">Ressources</a>
+      <a href="contact.html" class="btn-pill-primary">Prendre contact</a>
+    </nav>
+
+    <button class="menu-toggle" data-menu-toggle aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="mobile-nav" data-mobile-nav>
+    <div class="mobile-nav-inner">
+          <a href="index.html" class="mobile-nav-link">Accueil</a>
+          <a href="a-propos.html" class="mobile-nav-link">À propos</a>
+          <a href="expertises.html" class="mobile-nav-link">Expertises</a>
+          <a href="patients-proches.html" class="mobile-nav-link">Patients</a>
+          <a href="professionnels.html" class="mobile-nav-link">Professionnels</a>
+          <a href="formations.html" class="mobile-nav-link">Formations</a>
+          <a href="ressources.html" class="mobile-nav-link">Ressources</a>
+      <a href="contact.html" class="btn-pill-primary">Prendre contact</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="hero-section bordered">
+  <div class="container" style="padding:clamp(48px,6vw,80px) 24px;max-width:820px">
+    <div class="eyebrow">Contact</div>
+    <h1 class="h1-page">Prendre contact</h1>
+    <p class="body-text-lg" style="max-width:56ch">Demander un avis, organiser une formation ou échanger sur une situation complexe : décrivez votre demande, une réponse vous sera apportée.</p>
+  </div>
+</section>
+
+<section class="container grid grid-auto-300" style="padding:clamp(44px,6vw,72px) 24px;gap:clamp(28px,4vw,48px);align-items:start">
+  <form class="contact-form" data-contact-form>
+    <div class="form-row">
+      <label class="form-field">
+        <span>Nom</span>
+        <input type="text" name="nom" autocomplete="family-name">
+      </label>
+      <label class="form-field">
+        <span>Prénom</span>
+        <input type="text" name="prenom" autocomplete="given-name">
+      </label>
+    </div>
+    <div class="form-row">
+      <label class="form-field">
+        <span>Téléphone</span>
+        <input type="tel" name="telephone" autocomplete="tel">
+      </label>
+      <label class="form-field">
+        <span>Email</span>
+        <input type="email" name="email" autocomplete="email">
+      </label>
+    </div>
+    <label class="form-field">
+      <span>Vous êtes</span>
+      <select name="profil">
+              <option>Patient</option>
+              <option>Proche</option>
+              <option>Professionnel de santé</option>
+              <option>Établissement</option>
+              <option>Autre</option>
+      </select>
+    </label>
+    <label class="form-field">
+      <span>Motif général</span>
+      <input type="text" name="motif" placeholder="Avis spécialisé, formation, coordination…">
+    </label>
+    <label class="form-field">
+      <span>Message court</span>
+      <textarea name="message" rows="4"></textarea>
+    </label>
+    <button type="submit" class="btn-pill-primary" style="padding:15px 28px;margin-top:4px;border:none">Envoyer ma demande</button>
+  </form>
+
+  <div style="display:flex;flex-direction:column;gap:20px">
+    <div class="alert-urgence">
+      <h3 style="text-transform:uppercase;letter-spacing:.04em;font-size:13px;margin-bottom:10px">Urgence</h3>
+      <p style="font-size:14.5px">Ce formulaire ne doit pas être utilisé pour une urgence médicale. En cas d’urgence ou d’aggravation rapide, contactez un professionnel de santé ou les services d’urgence.</p>
+    </div>
+    <div class="side-card">
+      <h3>Confidentialité</h3>
+      <p>Merci de ne pas transmettre de photographies de plaies ni de documents médicaux via ce formulaire. Les informations envoyées servent uniquement à répondre à votre demande.</p>
+    </div>
+    <div class="side-card">
+      <h3>Coordonnées</h3>
+      <div class="coord-list">
+        <span>[Ajouter e-mail professionnel]</span>
+        <span>[Ajouter téléphone]</span>
+        <span>[Ajouter zone d’intervention]</span>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div style="max-width:280px">
+      <div class="footer-brand">
+        <img src="assets/mark-poggi.png" width="38" height="38" alt="">
+        <span class="footer-brand-text">
+          <span class="footer-brand-name">Patricia Poggi</span>
+          <span class="footer-brand-sub">Plaies &amp; Cicatrisation</span>
+        </span>
+      </div>
+      <p style="margin:0;font:400 13.5px/1.7 'Mulish',sans-serif;color:#93A0A8">Expertise, accompagnement et coordination des soins pour les plaies complexes, chroniques ou à cicatrisation difficile.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Navigation</div>
+      <div class="footer-links">
+          <a href="index.html" class="footer-link">Accueil</a>
+          <a href="a-propos.html" class="footer-link">À propos</a>
+          <a href="expertises.html" class="footer-link">Expertises</a>
+          <a href="patients-proches.html" class="footer-link">Patients</a>
+          <a href="professionnels.html" class="footer-link">Professionnels</a>
+          <a href="formations.html" class="footer-link">Formations</a>
+          <a href="ressources.html" class="footer-link">Ressources</a>
+          <a href="contact.html" class="footer-link">Contact</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Informations</div>
+      <div class="footer-links">
+        <a href="mentions-legales.html" class="footer-link">Mentions légales</a>
+        <a href="mentions-legales.html" class="footer-link">Politique de confidentialité</a>
+        <a href="mentions-legales.html" class="footer-link">Accessibilité</a>
+        <a href="contact.html" class="footer-link">Plan du site</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <div class="footer-links">
+        <a href="contact.html" class="footer-link">Formulaire de contact</a>
+        <span class="footer-static">[Ajouter e-mail]</span>
+        <span class="footer-static">[Ajouter téléphone]</span>
+        <span class="footer-static">[Réseaux professionnels]</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner">
+      <span class="footer-copy">© 2026 Patricia Poggi — Plaies &amp; Cicatrisation. Tous droits réservés.</span>
+      <span class="footer-note">Ce site ne remplace pas une consultation ou un avis médical personnalisé.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
