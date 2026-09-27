@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Papote — discuter avec un inconnu</title>
+  <meta name="description" content="Discutez par écrit avec une personne au hasard, sans inscription.">
+  <meta name="color-scheme" content="light dark">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="Papote, accueil">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M6 7h14a4 4 0 0 1 4 4v6a4 4 0 0 1-4 4h-7l-5 4v-4H6a4 4 0 0 1-4-4v-6a4 4 0 0 1 4-4z"/>
+        <path class="brand-mark-back" d="M26 11h0a4 4 0 0 1 4 4v5a4 4 0 0 1-4 4v3l-4-3h-3"/>
+      </svg>
+      <span>Papote</span>
+    </a>
+    <p class="online" aria-live="polite"><span class="online-dot" aria-hidden="true"></span><span id="online-count">—</span> en ligne</p>
+  </header>
+
+  <main id="home" class="home">
+    <section class="hero">
+      <h1>Parlez avec quelqu’un<br>que vous ne connaissez pas.</h1>
+      <p class="lead">Une conversation écrite, en tête-à-tête, avec une personne au hasard. Pas de compte, pas de caméra.</p>
+    </section>
+
+    <form id="start-form" class="card" novalidate>
+      <label class="field-label" for="interest-input">Vos centres d’intérêt <span class="optional">(facultatif)</span></label>
+      <div class="tags" id="tags">
+        <input id="interest-input" type="text" autocomplete="off" enterkeyhint="done" maxlength="30"
+               placeholder="ex. musique, cinéma, jeux vidéo">
+      </div>
+      <p class="hint">Appuyez sur Entrée ou mettez une virgule pour ajouter un mot. Vous serez mis en relation en priorité avec quelqu’un qui partage l’un d’eux.</p>
+
+      <ul class="rules">
+        <li>Réservé aux personnes majeures.</li>
+        <li>Pas de harcèlement, de contenu sexuel, haineux ou illégal.</li>
+        <li>Ne donnez jamais votre nom, votre adresse ou votre numéro.</li>
+        <li>Les messages ne sont pas conservés, sauf ceux d’une conversation signalée.</li>
+      </ul>
+
+      <label class="check">
+        <input id="adult" type="checkbox">
+        <span>J’ai 18 ans ou plus et j’accepte ces règles.</span>
+      </label>
+
+      <button id="start" class="btn btn-primary btn-wide" type="submit" disabled>Commencer à discuter</button>
+      <p id="home-notice" class="notice" role="alert" hidden></p>
+    </form>
+  </main>
+
+  <main id="chat" class="chat" hidden>
+    <div class="chat-status">
+      <p id="status" aria-live="polite">Connexion…</p>
+      <button id="report" class="btn btn-ghost btn-small" type="button" hidden>Signaler</button>
+    </div>
+
+    <ol id="log" class="log" aria-live="polite" aria-relevant="additions"></ol>
+    <p id="typing" class="typing" hidden>L’inconnu écrit<span class="dots" aria-hidden="true"><i></i><i></i><i></i></span></p>
+
+    <form id="composer" class="composer">
+      <button id="next" class="btn btn-next" type="button">Suivant</button>
+      <textarea id="message" rows="1" maxlength="1000" placeholder="Message…"
+                enterkeyhint="send" aria-label="Message" disabled></textarea>
+      <button id="send" class="btn btn-primary" type="submit" disabled>Envoyer</button>
+    </form>
+  </main>
+
+  <dialog id="report-dialog" class="dialog">
+    <form method="dialog">
+      <h2>Signaler cette personne</h2>
+      <p>La conversation sera terminée et vous ne serez plus mis en relation avec elle.</p>
+      <fieldset>
+        <legend class="visually-hidden">Motif</legend>
+        <label class="radio"><input type="radio" name="reason" value="harcelement" checked> Harcèlement ou insultes</label>
+        <label class="radio"><input type="radio" name="reason" value="sexuel"> Contenu sexuel</label>
+        <label class="radio"><input type="radio" name="reason" value="mineur"> Semble être mineur</label>
+        <label class="radio"><input type="radio" name="reason" value="spam"> Spam ou publicité</label>
+        <label class="radio"><input type="radio" name="reason" value="autre"> Autre</label>
+      </fieldset>
+      <div class="dialog-actions">
+        <button class="btn btn-ghost" value="cancel">Annuler</button>
+        <button class="btn btn-danger" value="send">Signaler</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>
